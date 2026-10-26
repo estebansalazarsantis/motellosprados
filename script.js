@@ -1,0 +1,10 @@
+const menuButton=document.querySelector('.menu-button');
+const navLinks=document.querySelector('.nav-links');
+menuButton.addEventListener('click',()=>{const isOpen=navLinks.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(isOpen));menuButton.setAttribute('aria-label',isOpen?'Cerrar menú':'Abrir menú')});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Abrir menú')}));
+document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{const filter=button.dataset.filter;document.querySelectorAll('.filter').forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button))});document.querySelectorAll('.gallery-item').forEach(item=>{item.hidden=filter!=='all'&&item.dataset.category!==filter})}));
+const lightbox=document.getElementById('lightbox');const lightboxImage=lightbox.querySelector('img');
+document.querySelectorAll('.gallery-item').forEach(item=>item.addEventListener('click',()=>{lightboxImage.src='assets/'+item.dataset.src;lightboxImage.alt=item.dataset.alt;lightbox.querySelector('p').textContent=item.dataset.alt;lightbox.showModal()}));
+lightbox.querySelector('.lightbox-close').addEventListener('click',()=>lightbox.close());
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)lightbox.close()});
+document.getElementById('year').textContent=new Date().getFullYear();
